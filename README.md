@@ -6,8 +6,7 @@ Automatically convert the br file from Oplus Ota to img format image for flash i
 ## 2.Get OTA file from /data/ota_package/OTA/.otaPackage/
 ## 3.Unzip,and copy .br files and .list files to /sdcard/xxtvrxx233/c13/files
 ### The Most Important Step: rename all files with numbers as [partition names] .new.dat.br(expamle:my_manifest.new.dat.br)
-## 4.Install Termux from F-droid/Google Play,open and type
-pkg install python3 -y
+## 4.Install Termux from F-droid/Google Play,open and type pkg install python3 -y
 ## 5.After completion,use termux-setup-storage to grant storage permission and use cd command to change the folder to where the script is located
 ## 6.Just execute the script
 
