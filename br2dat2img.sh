@@ -86,7 +86,7 @@ get_char()
 echo "确保 内置存储/xxtvrxx233/c13/files 内包含list和dat文件，按任意键继续..."
 char=`get_char`
 
-echo 开始执行sdat2img
+echo "开始执行sdat2img"
 
 
 #start transfering
