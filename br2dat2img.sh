@@ -104,7 +104,7 @@ python sdat2img.py my_product.transfer.list my_product.new.dat my_product.img
 
 python sdat2img.py my_bigball.transfer.list my_bigball.new.dat my_bigball.img
 
-python sdat2img.py my_carrier.1001011.transfer.list my_carrier.new.dat my_carrier.img
+python sdat2img.py my_carrier.transfer.list my_carrier.new.dat my_carrier.img
 
 python sdat2img.py my_engineering.transfer.list my_engineering.new.dat my_engineering.img
 
