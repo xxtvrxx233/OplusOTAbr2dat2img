@@ -5,8 +5,15 @@ Automatically convert the br file from Oplus Ota to img format image for flash i
 (Settings→About Phone→Software Updates→Download)
 ## 2.Get OTA file from /data/ota_package/OTA/.otaPackage/
 ## 3.Unzip,and copy .br files and .list files to /sdcard/xxtvrxx233/c13/files
-### The Most Important Step: rename all files with numbers as [partition names] .new.dat.br(expamle:my_manifest.new.dat.br)
-## 4.Install Termux from F-droid/Google Play,open and type pkg install python3 -y
+### The Most Important Step: rename all files with numbers as
+```
+[partition names].new.dat.br
+```
+(expamle:my_manifest.new.dat.br)
+## 4.Install Termux from F-droid/Google Play,open and type 
+```
+pkg install python3 -y
+```
 ## 5.After completion,use termux-setup-storage to grant storage permission and use cd command to change the folder to where the script is located
 ## 6.Just execute the script
 
@@ -18,7 +25,15 @@ Automatically convert the br file from Oplus Ota to img format image for flash i
 ## 2.下载软件更新后，使用MT管理器跳转到/data/ota_package/OTA/.otaPackage/
 ## 3.将压缩包里的br格式和list格式的文件复制到/sdcard/xxtvrxx233/c13/files内
 (没有文件夹就自己创建)
-### 最重要的一步:将所有带有数字的文件重命名为标准的 [分区名].new.dat.br 形式(例如:my_manifest.new.dat.br)
-## 4.从酷安或者F-droid下载Termux终端模拟器，打开然后输入pkg install python3来安装必要依赖
-## 5.安装完成后，输入termux-setup-storage来取得存储权限，然后使用cd命令转到sh脚本所在目录(开头提到过)
+### 最重要的一步:将所有带有数字的文件重命名为
+```
+[分区名].new.dat.br
+```
+ (例如:my_manifest.new.dat.br)
+## 4.从酷安或者F-droid下载Termux终端模拟器，打开，然后输入
+```pkg install python3 -y```
+来安装必要依赖
+## 5.安装完成后，输入
+```termux-setup-storage```来取得存储权限，然后使用cd命令转到sh脚本所在目录(开头提到过)
+例如```cd /sdcard/Download```
 ## 6.执行脚本即可
