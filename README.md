@@ -25,6 +25,7 @@ apt install brotli python3 #For Debian&Termux Users
 pacman -S brotli python3 #For Arch Users
 ```
 ## 5. Just run the script
+Go to Workspace
 ``` bash
 bash br2dat2img_en.sh
 ```
@@ -54,7 +55,8 @@ _注意：在这之前，你需要自行创建工作目录。_
 apt install brotli python3 #Debian和Termux用户
 pacman -S brotli python3 #Arch用户
 ```
-## 6. 执行脚本
+## 5. 执行脚本
+转到工作目录
 ```bash
 bash br2dat2img.sh
 ```
