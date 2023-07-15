@@ -3,7 +3,7 @@
 
 Automatically convert the br file from Oplus Ota to img format image for flash in
 # How to use?
-## 1.First download [br2dat2img.sh](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/br2dat2img.sh) and [files.zip](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/files.zip ) then download Software Updates 
+## 1.First download [br2dat2img.sh](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/download/1.1/br2dat2img.sh) and [files.zip](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/Download/1.1/files.zip ) then download Software Updates 
 (Settings→About Phone→Software Updates→Download)
 ## 2.Get OTA file from ```/data/ota_package/OTA/.otaPackage/```
 ## 3.Unzip,and copy .br files and .list files to ```/sdcard/xxtvrxx233/c13/files```
@@ -29,7 +29,7 @@ pkg install python3 -y
 自动将br格式的文件转换为可以直接刷入的img镜像
 
 # 如何使用?
-## 1.首先下载[br2dat2img.sh](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/br2dat2img.sh)和[files.zip](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/files.zip )(到任意目录，目录最好不要带中文) 然后下载系统更新
+## 1.首先下载[br2dat2img.sh](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/Download/1.1/br2dat2img.sh)和[files.zip](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/Download/1.1/files.zip )(到任意目录，目录最好不要带中文) 然后下载系统更新
 (设置→关于本机→ColorOS/RealmeUI的logo)
 ## 2.下载软件更新后，使用MT管理器跳转到```/data/ota_package/OTA/.otaPackage/```
 ## 3.将压缩包里的br格式和list格式的文件复制到```/sdcard/xxtvrxx233/c13/files```内
