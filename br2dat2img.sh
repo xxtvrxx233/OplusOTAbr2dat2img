@@ -3,13 +3,16 @@
 
 echo "确保您在Termux中执行此脚本，并已安装了python3(使用命令pkg install python3 -y)"
 
+sleep 1s
 
 mkdir /sdcard/xxtvrxx233
 
 mkdir /sdcard/xxtvrxx233/c13
 
+mkdir /sdcard/xxtvrxx233/c13/files
 
-unzip files.zip -od /sdcard/xxtvrxx233/c13/files 
+curl https://raw.githubusercontent.com/xpirt/sdat2img/master/sdat2img.py -o /sdcard/xxtvrxx233/c13/files/sdat2img.py
+
 
 cd /sdcard/xxtvrxx233/c13/files
 
@@ -26,6 +29,7 @@ get_char()
 
 echo "确保 内置存储/xxtvrxx233/c13/files 内包含list和dat文件，按任意键继续..."
 char=`get_char`
+
 
 if [ -f "/sdcard/xxtvrxx233/c13/files/system.new.dat.br" ];then
      echo "文件存在，即将开始"
