@@ -2,53 +2,60 @@
 [![latest release](https://img.shields.io/github/v/tag/xxtvrxx233/OplusOTAbr2dat2img?color=green&include_prereleases&label=version&sort=semver&style=flat-square)](https://github.com/xxtvrxx233/OplusOTAbr2dat2img)
 
 Automatically convert the br file from Oplus Ota to img format image for flash in
-# How to use?
-## 1.First download [br2dat2img_en.sh](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/download/1.3/br2dat2img_en.sh) then download Software Updates 
-(Settings→About Phone→Software Updates→Download)
-## 2.Get OTA file from ```/data/ota_package/OTA/.otaPackage/```
-## 3.Unzip,and copy .br files and .list files to ```/sdcard/xxtvrxx233/c13/files```
-Tips:If the folder does not exist, you can manually create or run the script once.
-### The Most Important Step: rename all files with numbers as
+# Usage:
+## 1. Get Software Updates
+Settings→About Phone→Software Updates→Download
+## 2. Get OTA file
+Go to `/data/ota_package/OTA/.otaPackage/`, copy and unzip all the `.br` and `.list` 
+files into workspace.
+
+_Note: You have to create workspace folder manually before using it._
+## 3. Rename all files with numbers as
 ```
 [partition names].new.dat.br
 [partition names].transfer.list
 ```
-(expamle:my_manifest.new.dat.br
+> e.g.
+> my_manifest.new.dat.br
+> my_manifest.transfer.list
 
-my_manifest.transfer.list)
-## 4.Install Termux from [F-droid](https://f-droid.org/packages/com.termux/)/[Github](https://github.com/termux/termux-app/releases),open and type 
+## 4. Install dependences
+```bash
+apt install brotli python3 #For Debian&Termux Users
+pacman -S brotli python3 #For Arch Users
 ```
-pkg install python3 -y
+## 5. Just run the script
+``` bash
+bash br2dat2img_en.sh
 ```
-## 5.After completion,use 
-```termux-setup-storage``` to grant storage permission and use cd command to change the folder to where the script is located
-## 6.Just execute the script
-```bash br2dat2img_en.sh```
 
 # 绿厂OTA文件一键转换为img
 [![latest release](https://img.shields.io/github/v/tag/xxtvrxx233/OplusOTAbr2dat2img?color=green&include_prereleases&label=version&sort=semver&style=flat-square)](https://github.com/xxtvrxx233/OplusOTAbr2dat2img)
 
 自动将br格式的文件转换为可以直接刷入的img镜像
 
-# 如何使用?
-## 1.首先下载[br2dat2img.sh](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases/Download/1.3/br2dat2img.sh)(到任意目录，目录最好不要带中文) 然后下载系统更新
-(设置→关于本机→ColorOS/RealmeUI的logo)
-## 2.下载软件更新后，使用MT管理器跳转到```/data/ota_package/OTA/.otaPackage/```
-## 3.将压缩包里的br格式和list格式的文件复制到```/sdcard/xxtvrxx233/c13/files```内
-提示:若文件夹不存在可自行创建，或执行一次脚本
-### 最重要的一步:将所有带有数字的文件重命名为
+# 使用方法
+## 1.下载系统更新
+设置→关于本机→ColorOS/RealmeUI的logo
+## 2. 获取OTA文件
+转到 `/data/ota_package/OTA/.otaPackage/`文件夹, 解压所有`.br`和`.list`文件到工作目录
+_注意：在这之前，你需要自行创建工作目录。_
+
+## 3. 将文件重命名为
 ```
 [分区名].new.dat.br
 [分区名].transfer.list
 ```
- (例如:my_manifest.new.dat.br
- 和my_manifest.transfer.list)
-## 4.从[Github](https://github.com/termux/termux-app/releases)或者[F-droid](https://f-droid.org/packages/com.termux/)下载Termux终端模拟器，打开，然后输入
-```pkg install python3 -y```
-来安装必要依赖
-## 5.安装完成后，输入
-```termux-setup-storage```来取得存储权限，然后使用cd命令转到sh脚本所在目录(开头提到过)
-例如```cd /sdcard/Download```
-## 6.执行脚本即可
-```bash br2dat2img.sh```
-注:这可能需要特殊网络环境
+> 如：
+> my_manifest.new.dat.br
+> my_manifest.transfer.list
+## 4. 安装依赖
+```bash
+apt install brotli python3 #Debian和Termux用户
+pacman -S brotli python3 #Arch用户
+```
+## 6. 执行脚本
+```bash
+bash br2dat2img.sh
+```
+_注:这可能需要特殊网络环境_

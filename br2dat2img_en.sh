@@ -1,11 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #by xxtvrxx233
-echo "Make sure that you execute this script in Termux,And python3 has been installed.(Use command pkg install python3 -y)"
-
-#prepare for the workspace
-mkdir -p /sdcard/xxtvrxx233/c13/files
-cd /sdcard/xxtvrxx233/c13/files
+echo "Make sure you have installed Python and Brotli"
+echo -e "\e[31m  Please make sure that this script runs in the workspace \e[0m"
+echo "Downloading files..."
 curl https://raw.githubusercontent.com/xpirt/sdat2img/master/sdat2img.py -o sdat2img.py
 
 get_char()
@@ -19,19 +17,18 @@ get_char()
     stty $SAVEDSTTY
 }
 
-echo -e "\e[36m Make sure /sdcard/xxtvrxx233/c13/files included list and dat files,Press any key to continue... \e[0m"
+echo -e "\e[36m Make sure workspace included .list & .dat files, Press any key to continue...\e[0m"
 char=`get_char`
 
-if [ -f "/sdcard/xxtvrxx233/c13/files/system.new.dat.br" ];then
+if [ -f "system.new.dat.br" ];then
     echo "File exists, start immediately."
 else
-    echo -e "\e[36m File does not exist.，Please decompress br and dat files to /sdcard/xxtvrxx233/c13/files \e[0m"
+    echo -e "\e[36m  File does not exist. Please decompress .br and .dat files to workspace\e[0m"
     exit
 fi
 
 
 #start decompressing
-sleep 2s
 brotli --decompress --output=vendor.new.dat vendor.new.dat.br
 brotli --decompress --output=system.new.dat system.new.dat.br
 brotli --decompress --output=odm.new.dat odm.new.dat.br
@@ -48,19 +45,19 @@ brotli --decompress --output=my_region.new.dat my_region.new.dat.br
 
 
 #clear br files
-if [ -f "/sdcard/xxtvrxx233/c13/files/system.new.dat" ];then
-    rm -f /sdcard/xxtvrxx233/c13/files/*.br
+if [ -f "system.new.dat" ];then
+    rm -f ./*.br
 else
-    echo -e "\e[36m Decompression failed. Please check the source file and try again. \e[0m"
+    echo -e "\e[36m  Decompression failed. Please check the source file and try again.\e[0m"
     exit
 fi
 
 sleep 3s
+echo -e "\e[36m Make sure workspace included .list & .dat files, Press any key to continue...\e[0m"
 
-echo -e "\e[36m Make sure /sdcard/xxtvrxx233/c13/files included list and dat files，Press any key to continue... \e[0m"
 char=`get_char`
 
-echo "Start sdat2img"
+echo "Running sdat2img..."
 
 
 #start transfering
@@ -80,12 +77,12 @@ python sdat2img.py my_region.transfer.list my_region.new.dat my_region.img
 
 
 #clear dat files
-if [ -f "/sdcard/xxtvrxx233/c13/files/system.img" ];then
-    rm -f /sdcard/xxtvrxx233/c13/files/*.dat
-    rm -f /sdcard/xxtvrxx233/c13/files/*.list
-    echo "Successful execution, exit immediately."
+if [ -f "system.img" ];then
+    rm -f ./*.dat
+    rm -f ./*.list
+    echo "Succeed"
     exit
 else
-    echo "Unable to execute sdat2img,Please check whether python3 are installed or source files "
+    echo "Unable to run sdat2img, Please check whether python3 are installed or source files existed"
     exit
 fi

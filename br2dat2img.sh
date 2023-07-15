@@ -1,11 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #by xxtvrxx233
-echo "确保您在Termux中执行此脚本，并已安装了python3(使用命令pkg install python3 -y)"
+echo "确保您已安装了python和brotli"
+echo "请确保此脚本在工作目录下运行"
 
-#prepare for the workspace
-mkdir -p /sdcard/xxtvrxx233/c13/files
-cd /sdcard/xxtvrxx233/c13/files
+echo "下载所需文件..."
 curl https://raw.githubusercontent.com/xpirt/sdat2img/master/sdat2img.py -o sdat2img.py
 
 get_char()
@@ -19,19 +18,18 @@ get_char()
     stty $SAVEDSTTY
 }
 
-echo -e "\e[36m 请确保 内置存储/xxtvrxx233/c13/files 内包含list和dat文件，按任意键继续... \e[0m"
+echo -e "\e[36m  请确保工作目录中内包含list和dat文件，按任意键继续...\e[0m"
 char=`get_char`
 
-if [ -f "/sdcard/xxtvrxx233/c13/files/system.new.dat.br" ];then
+if [ -f "system.new.dat.br" ];then
     echo "文件存在，即将开始"
 else
-    echo -e "\e[36m 文件不存在，请将官方OTA包中br,list格式的文件解压到 内置存储/xxtvrxx233/c13/files中 \e[0m"
+    echo -e "\e[36m  文件不存在，请将官方OTA包中br,list格式的文件解压到工作目录中\e[0m"
     exit
 fi
 
 
 #start decompressing
-sleep 2s
 brotli --decompress --output=vendor.new.dat vendor.new.dat.br
 brotli --decompress --output=system.new.dat system.new.dat.br
 brotli --decompress --output=odm.new.dat odm.new.dat.br
@@ -48,16 +46,16 @@ brotli --decompress --output=my_region.new.dat my_region.new.dat.br
 
 
 #clear br files
-if [ -f "/sdcard/xxtvrxx233/c13/files/system.new.dat" ];then
-    rm -f /sdcard/xxtvrxx233/c13/files/*.br
+if [ -f "system.new.dat" ];then
+    rm -f ./*.br
 else
-    echo -e "\e[36m 解压缩失败，请检查源文件后重试！ \e[0m"
+    echo -e "\e[36m  解压缩失败，请检查源文件后重试！\e[0m"
     exit
 fi
 
 sleep 3s
 
-echo -e "\e[36m 请确保 内置存储/xxtvrxx233/c13/files 内包含list和dat文件，按任意键继续... \e[0m"
+echo -e "\e[36m  请确保工作目录中内包含list和dat文件，按任意键继续...\e[0m"
 char=`get_char`
 
 echo "开始执行sdat2img"
@@ -80,9 +78,9 @@ python sdat2img.py my_region.transfer.list my_region.new.dat my_region.img
 
 
 #clear dat files
-if [ -f "/sdcard/xxtvrxx233/c13/files/system.img" ];then
-    rm -f /sdcard/xxtvrxx233/c13/files/*.dat
-    rm -f /sdcard/xxtvrxx233/c13/files/*.list
+if [ -f "system.img" ];then
+    rm -f ./*.dat
+    rm -f ./*.list
     echo "执行成功，即将退出"
     exit
 else
