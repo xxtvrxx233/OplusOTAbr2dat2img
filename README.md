@@ -16,7 +16,7 @@ Tips:If the folder does not exist, you can manually create or run the script onc
 (expamle:my_manifest.new.dat.br
 
 my_manifest.transfer.list)
-## 4.Install Termux from F-droid/Google Play,open and type 
+## 4.Install Termux from [F-droid](https://f-droid.org/packages/com.termux/)/[Github](https://github.com/termux/termux-app/releases),open and type 
 ```
 pkg install python3 -y
 ```
@@ -41,7 +41,7 @@ pkg install python3 -y
 ```
  (例如:my_manifest.new.dat.br
  和my_manifest.transfer.list)
-## 4.从酷安或者F-droid下载Termux终端模拟器，打开，然后输入
+## 4.从[Github](https://github.com/termux/termux-app/releases)或者[F-droid](https://f-droid.org/packages/com.termux/)下载Termux终端模拟器，打开，然后输入
 ```pkg install python3 -y```
 来安装必要依赖
 ## 5.安装完成后，输入
