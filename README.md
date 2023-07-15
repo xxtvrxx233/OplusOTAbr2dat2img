@@ -23,6 +23,7 @@ pkg install python3 -y
 ## 5.After completion,use 
 ```termux-setup-storage``` to grant storage permission and use cd command to change the folder to where the script is located
 ## 6.Just execute the script
+```bash br2dat2img.sh```
 
 # 绿厂OTA文件一键转换为img
 [![latest release](https://img.shields.io/github/v/tag/xxtvrxx233/OplusOTAbr2dat2img?color=green&include_prereleases&label=version&sort=semver&style=flat-square)](https://github.com/xxtvrxx233/OplusOTAbr2dat2img)
@@ -49,4 +50,5 @@ pkg install python3 -y
 ```termux-setup-storage```来取得存储权限，然后使用cd命令转到sh脚本所在目录(开头提到过)
 例如```cd /sdcard/Download```
 ## 6.执行脚本即可
+```bash br2dat2img.sh```
 注:这可能需要特殊网络环境
