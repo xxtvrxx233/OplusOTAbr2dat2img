@@ -28,7 +28,7 @@ pacman -S brotli python3 #For Arch Users
 ## 5. Just run the script
 Go to Workspace
 ``` bash
-bash br2dat2img_en.sh
+python br2dat2img.py
 ```
 
 # 绿厂OTA文件一键转换为img
@@ -60,6 +60,10 @@ pacman -S brotli python3 #Arch用户
 ## 5. 执行脚本
 转到工作目录
 ```bash
-bash br2dat2img.sh
+python br2dat2img.py
 ```
 _注:这可能需要特殊网络环境_
+
+---
+
+所用到的开源项目 [@xpirt/sdat2img](https://github.com/xpirt/sdat2img)
