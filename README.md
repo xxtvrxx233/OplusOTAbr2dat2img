@@ -12,8 +12,8 @@ files into workspace.
 
 _Note: You have to create workspace folder manually before using it._
 ## 3. Rename files
-```
 Rename all files with numbers as
+```
 [partition names].new.dat.br
 [partition names].transfer.list
 ```
