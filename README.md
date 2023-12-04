@@ -2,8 +2,10 @@
 [![latest release](https://img.shields.io/github/v/tag/xxtvrxx233/OplusOTAbr2dat2img?color=blue&include_prereleases&label=release&sort=semver&style=flat-square)](https://github.com/xxtvrxx233/OplusOTAbr2dat2img)
 [![Downloads](https://img.shields.io/github/downloads/xxtvrxx233/OplusOtabr2dat2img/total)](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases)
 
-Convert the br file from Oplus Ota to img format image for flash in
-# Usage:
+Convert the software updates files (OTA) from Oplus Deivices(OPPO/OnePlus/Realme) to img format image for flash in
+
+_Note:Only applicable to devices with [Dynamic Partitons](https://source.android.com/docs/core/ota/dynamic_partitions/implement)_
+# Usage
 ## 1. Get Software Updates
 Settings→About Phone→Software Updates→Download
 ## 2. Get OTA file
@@ -41,15 +43,17 @@ python br2dat2img_en.py
 ```
 ---
 Open source projects used [@xpirt/sdat2img](https://github.com/xpirt/sdat2img)
-# 绿厂OTA文件一键转换为img
+# Oplus（OPPO/一加/Realme） 设备OTA文件一键转换为img
+_注意:仅适用于[动态分区](https://source.android.google.cn/devices/tech/ota/dynamic_partitions/implement?hl=en-us)的设备_
+
 [![latest release](https://img.shields.io/github/v/tag/xxtvrxx233/OplusOTAbr2dat2img?color=blue&include_prereleases&label=release&sort=semver&style=flat-square)](https://github.com/xxtvrxx233/OplusOTAbr2dat2img)
 [![Downloads](https://img.shields.io/github/downloads/xxtvrxx233/OplusOtabr2dat2img/total)](https://shields.io/category/downloads)
 
 自动将br格式的文件转换为可以直接刷入的img镜像
 
 # 使用方法
-## 1.下载系统更新
-设置→关于本机→ColorOS/RealmeUI的logo
+## 1.下载软件更新
+设置→关于本机→查看更新→立即下载
 ## 2. 获取OTA文件
 转到 `/data/ota_package/OTA/.otaPackage/`文件夹, 解压所有`.br`和`.list`文件到工作目录
 _注意：在这之前，你需要自行创建工作目录。_
@@ -73,9 +77,9 @@ apt install brotli python3
 pacman -S brotli python3
 ```
 ### Windows用户
-从 [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?)  获取 Python 3.11  
+在 [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?)  上获取 Python 3.11  
 
-从 [google/brotli](https://github.com/google/brotli/releases) 获取 Brotli
+从 [google/brotli](https://github.com/google/brotli/releases) 下载 Brotli 的最新发行版
 ## 5. 执行脚本
 转到工作目录
 ```bash
