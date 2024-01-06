@@ -7,8 +7,15 @@ Convert the software updates files (OTA) from Oplus Deivices(OPPO/OnePlus/Realme
 _Note:Only applicable to devices with [Dynamic Partitons](https://source.android.com/docs/core/ota/dynamic_partitions/implement)_
 # Usage
 ## 1. Get Software Updates
-Settings→About Phone→Software Updates→Download
-## 2. Get OTA file
+
+<div>Open 
+     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_Settings_Icon.png" width="20" height="20"                                              alt="ColorOS_Settings_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a> Settings App<div>Tap 
+     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_About_Icon.png" width="20" height="20"                                              alt="ColorOS_About_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a>About Phone→Software Updates→Download 
+     </div>
+
+ ## 2. Get OTA file
+ While finish
+ 
 Go to `/data/ota_package/OTA/.otaPackage/`, copy and unzip all the `.br` and `.list` 
 files into workspace.
 
@@ -53,7 +60,10 @@ _注意:仅适用于[动态分区](https://source.android.google.cn/devices/tech
 
 # 使用方法
 ## 1.下载软件更新
-设置→关于本机→查看更新→立即下载
+<div>打开 
+     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_Settings_Icon.png" width="20" height="20"                                              alt="ColorOS_Settings_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a> 设置 应用<div>点按
+     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_About_Icon.png" width="20" height="21"                                              alt="ColorOS_About_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a>关于本机→查看更新→立即下载
+      
 ## 2. 获取OTA文件
 转到 `/data/ota_package/OTA/.otaPackage/`文件夹, 解压所有`.br`和`.list`文件到工作目录
 _注意：在这之前，你需要自行创建工作目录。_
