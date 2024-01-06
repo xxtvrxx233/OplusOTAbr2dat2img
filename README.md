@@ -10,7 +10,7 @@ _Note:Only applicable to devices with [Dynamic Partitons](https://source.android
 
 <div>Open 
      <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_Settings_Icon.png" width="20" height="20"                                              alt="ColorOS_Settings_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a> Settings App<div>Tap 
-     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_About_Icon.png" width="20" height="20"                                              alt="ColorOS_About_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a>About Phone→Software Updates→Download 
+     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_About_Icon.png" width="20" height="22"                                              alt="ColorOS_About_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a>About Phone→Software Updates→Download 
      </div>
 
  ## 2. Get OTA file
@@ -65,6 +65,8 @@ _注意:仅适用于[动态分区](https://source.android.google.cn/devices/tech
      <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_About_Icon.png" width="20" height="21"                                              alt="ColorOS_About_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a>关于本机→查看更新→立即下载
       
 ## 2. 获取OTA文件
+等待下载完成后
+
 转到 `/data/ota_package/OTA/.otaPackage/`文件夹, 解压所有`.br`和`.list`文件到工作目录
 _注意：在这之前，你需要自行创建工作目录。_
 
