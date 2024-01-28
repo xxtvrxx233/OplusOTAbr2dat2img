@@ -43,7 +43,7 @@ pacman -S brotli python3
 Get Python 3.11 from [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?) 
 
 Get brotli from [google/brotli](https://github.com/google/brotli/releases)
-## 5. Just run the script
+## 5. Run the script
 Go to Workspace
 ``` bash
 python br2dat2img_en.py
