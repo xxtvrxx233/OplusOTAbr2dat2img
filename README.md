@@ -4,7 +4,7 @@
 
 Convert the software updates files (OTA) from Oplus Deivices(OPPO/OnePlus/Realme) to img format image for flash in
 
-_Note:Only applicable to devices with [Dynamic Partitons](https://source.android.com/docs/core/ota/dynamic_partitions/implement)_
+_Note:Only applicable to devices with A-only [Dynamic Partitons](https://source.android.com/docs/core/ota/dynamic_partitions/implement)_
 # Usage
 ## 1. Get Software Updates
 
@@ -51,7 +51,7 @@ python br2dat2img_en.py
 ---
 Open source projects used [@xpirt/sdat2img](https://github.com/xpirt/sdat2img)
 # Oplus（OPPO/一加/Realme） 设备OTA文件一键转换为img
-_注意:仅适用于[动态分区](https://source.android.google.cn/devices/tech/ota/dynamic_partitions/implement?hl=en-us)的设备_
+_注意:仅适用于A-only[动态分区](https://source.android.google.cn/devices/tech/ota/dynamic_partitions/implement?hl=en-us)的设备_
 
 [![latest release](https://img.shields.io/github/v/tag/xxtvrxx233/OplusOTAbr2dat2img?color=blue&include_prereleases&label=release&sort=semver&style=flat-square)](https://github.com/xxtvrxx233/OplusOTAbr2dat2img)
 [![Downloads](https://img.shields.io/github/downloads/xxtvrxx233/OplusOtabr2dat2img/total)](https://shields.io/category/downloads)
