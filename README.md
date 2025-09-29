@@ -33,11 +33,11 @@ Rename all files with numbers as
 ## 4. Install dependences
 ### Debian & Termux Users
 ```bash
-apt install brotli python3
+# apt install brotli python3
 ```
 ### Arch Users
 ```bash
-pacman -S brotli python3 
+# pacman -S brotli python3 
 ```
 ### Windows Users
 Get Python 3.11 from [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?) 
@@ -80,18 +80,18 @@ _注意：在这之前，你需要自行创建工作目录。_
 > my_manifest.new.dat.br
 > my_manifest.transfer.list
 ## 4. 安装依赖
-###  Debian系Linux和Termux用户
+###  Debian 系或 Termux 用户
 ```bash
-apt install brotli python3
+# apt install brotli python3
 ```
- ### Arch用户
+ ### Arch 用户
 ```
-pacman -S brotli python3
+# pacman -S brotli python3
 ```
-### Windows用户
-在 [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?)  上获取 Python 3.11  
+### Windows 用户
+在 [Microsoft Store] (https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?)  上获取 Python 3.11  
 
-从 [google/brotli](https://github.com/google/brotli/releases) 下载 Brotli 的最新发行版
+转到 [google/brotli](https://github.com/google/brotli/releases) 下载 Brotli 的最新发行版
 ## 5. 执行脚本
 转到工作目录
 ```bash
