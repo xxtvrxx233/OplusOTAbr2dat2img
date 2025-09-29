@@ -46,7 +46,7 @@ Get brotli from [google/brotli](https://github.com/google/brotli/releases)
 ## 5. Run the script
 Go to Workspace
 ``` bash
-python br2dat2img_en.py
+$ python br2dat2img_en.py
 ```
 ---
 Open source projects used [@xpirt/sdat2img](https://github.com/xpirt/sdat2img)
@@ -95,7 +95,8 @@ _注意：在这之前，你需要自行创建工作目录。_
 ## 5. 执行脚本
 转到工作目录
 ```bash
-python br2dat2img.py
+
+ $ python br2dat2img.py
 ```
 _注:这可能需要特殊网络环境_
 
