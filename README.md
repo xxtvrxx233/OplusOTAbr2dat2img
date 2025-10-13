@@ -89,7 +89,7 @@ _注意：在这之前，你需要自行创建工作目录。_
 # pacman -S brotli python3
 ```
 ### Windows 用户
-在 [Microsoft Store] (https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?)  上获取 Python 3.11  
+在 [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?)  上获取 Python 3.11  
 
 转到 [google/brotli](https://github.com/google/brotli/releases) 下载 Brotli 的最新发行版
 ## 5. 执行脚本
