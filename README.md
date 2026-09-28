@@ -4,7 +4,7 @@
 
 Convert OTA software update files from Oplus devices (OPPO/OnePlus/Realme) into `.img` images for flashing
 
-_Note:Only applicable to devices with A-only [Dynamic Partitons](https://source.android.com/docs/core/ota/dynamic_partitions/implement)_
+_Note: Only applicable to devices with A-only [Dynamic Partitons](https://source.android.com/docs/core/ota/dynamic_partitions/implement)_
 # Usage
 ## 1. Get Software Updates
 
@@ -43,7 +43,7 @@ $ pip install brotli
 
 ### Windows Users
 Get Python 3.11 from [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?) 
-then in Powershell
+then run the following command in PowerShell
 ```bash
 > pip install brotli
 ```
