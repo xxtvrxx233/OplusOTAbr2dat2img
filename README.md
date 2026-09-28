@@ -20,34 +20,36 @@ Go to `/data/ota_package/OTA/.otaPackage/`, copy and unzip all the `.br` and `.l
 files into workspace.
 
 _Note: You have to create workspace folder manually before using it._
-## 3. Rename files
-Rename all files with numbers as
-```
-[partition names].new.dat.br
-[partition names].transfer.list
-```
-> e.g.
-> my_manifest.new.dat.br
-> my_manifest.transfer.list
-
-## 4. Install dependences
-### Debian & Termux Users
+## 3. Install dependences
+### Debian & Ubuntu Users
 ```bash
-# apt install brotli python3
+# apt install python3-brotli python3
+```
+### Termux Users
+```bash
+# pkg install python-brotli python
 ```
 ### Arch Users
 ```bash
-# pacman -S brotli python3 
+# pacman -S python-brotli python 
 ```
 ### Windows Users
 Get Python 3.11 from [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?) 
 
-Get brotli from [google/brotli](https://github.com/google/brotli/releases)
-## 5. Run the script
+```bash
+> pip install brotli
+```
+
+_Note: If you have the whole repository, `pip install -r requirements.txt` installs the same dependency._
+## 4. Run the script
 Go to Workspace
 ``` bash
-$ python br2dat2img_en.py
+$ python3 br2dat2img.py
 ```
+The script scans the workspace and lists the partitions found. Press `y` to start. Images are written to `./out/`.
+
+_Note: Renaming files is not needed - numbers in filenames are removed automatically. The interface language follows your system locale, so one script serves both._
+
 ---
 Open source projects used [@xpirt/sdat2img](https://github.com/xpirt/sdat2img)
 # Oplus（OPPO/一加/Realme） 设备OTA文件一键转换为img
@@ -70,35 +72,35 @@ _注意:仅适用于A-only[动态分区](https://source.android.google.cn/device
 转到 `/data/ota_package/OTA/.otaPackage/`文件夹, 解压所有`.br`和`.list`文件到工作目录
 _注意：在这之前，你需要自行创建工作目录。_
 
-## 3.重命名文件
-将部分带有数字的文件重命名为
-```
-[分区名].new.dat.br
-[分区名].transfer.list
-```
-> 如：
-> my_manifest.new.dat.br
-> my_manifest.transfer.list
-## 4. 安装依赖
-###  Debian 系或 Termux 用户
+## 3. 安装依赖
+### Debian / Ubuntu 用户
 ```bash
-# apt install brotli python3
+# apt install python3-brotli python3
+```
+### Termux 用户
+```bash
+# pkg install python-brotli python
 ```
  ### Arch 用户
 ```
-# pacman -S brotli python3
+# pacman -S python-brotli python
 ```
 ### Windows 用户
 在 [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?)  上获取 Python 3.11  
 
-转到 [google/brotli](https://github.com/google/brotli/releases) 下载 Brotli 的最新发行版
-## 5. 执行脚本
+```bash
+> pip install brotli
+```
+
+_注:若已获取整个仓库，可执行 `pip install -r requirements.txt` 安装同一依赖。_
+## 4. 执行脚本
 转到工作目录
 ```bash
-
- $ python br2dat2img.py
+$ python3 br2dat2img.py
 ```
-_注:这可能需要特殊网络环境_
+脚本会扫描工作目录，列出识别到的分区，按 `y` 开始转换。输出的镜像在 `./out/` 目录。
+
+_注:无需重命名文件，文件名中的数字会自动去除。界面语言跟随系统区域设置，中英文共用一个脚本。_
 
 ---
 
