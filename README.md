@@ -20,7 +20,9 @@ Go to `/data/ota_package/OTA/.otaPackage/`, copy and unzip all the `.br` and `.l
 files into workspace.
 
 _Note: You have to create workspace folder manually before using it._
-## 3. Install dependences
+## 3. Put scripts into workspace
+Copy `br2dat2img.py` and `sdat2img.py` from this repository into the workspace.
+## 4. Install dependences
 ### Debian & Ubuntu Users
 ```bash
 # apt install python3-brotli python3
@@ -41,7 +43,7 @@ Get Python 3.11 from [Microsoft Store](https://apps.microsoft.com/store/detail/p
 ```
 
 _Note: If you have cloned the whole repository, `pip install -r requirements.txt` installs the same dependency._
-## 4. Run the script
+## 5. Run the script
 Go to Workspace
 ``` bash
 $ python3 br2dat2img.py
@@ -51,7 +53,9 @@ The script scans the workspace and lists the partitions found. Press `y` to star
 _Note: Renaming files is not needed - numbers in filenames are removed automatically. The interface language follows your system locale, so one script serves both._
 
 ---
-Open source projects used [@xpirt/sdat2img](https://github.com/xpirt/sdat2img)
+Open source projects used [@xpirt/sdat2img](https://github.com/xpirt/sdat2img). Its license is kept in `LICENSES/sdat2img-MIT.txt`.
+
+ColorOS icons are the property of OPPO, used here solely to indicate where to tap.
 # Oplus（OPPO/一加/Realme） 设备OTA文件一键转换为img
 _注意:仅适用于A-only[动态分区](https://source.android.google.cn/devices/tech/ota/dynamic_partitions/implement?hl=en-us)的设备_
 
@@ -72,7 +76,9 @@ _注意:仅适用于A-only[动态分区](https://source.android.google.cn/device
 转到 `/data/ota_package/OTA/.otaPackage/`文件夹, 解压所有`.br`和`.list`文件到工作目录
 _注意：在这之前，你需要自行创建工作目录。_
 
-## 3. 安装依赖
+## 3. 放入脚本
+将本仓库中的 `br2dat2img.py` 和 `sdat2img.py` 复制到工作目录。
+## 4. 安装依赖
 ### Debian / Ubuntu 用户
 ```bash
 # apt install python3-brotli python3
@@ -93,7 +99,7 @@ _注意：在这之前，你需要自行创建工作目录。_
 ```
 
 _注:若已 clone 整个仓库，可执行 `pip install -r requirements.txt` 安装依赖。_
-## 4. 执行脚本
+## 5. 执行脚本
 转到工作目录
 ```bash
 $ python3 br2dat2img.py
@@ -104,4 +110,6 @@ _注:无需重命名文件，文件名中的 nv 号会自动去除。界面语�
 
 ---
 
-所用到的开源项目 [@xpirt/sdat2img](https://github.com/xpirt/sdat2img)
+所用到的开源项目 [@xpirt/sdat2img](https://github.com/xpirt/sdat2img)，其许可证保存在 `LICENSES/sdat2img-MIT.txt`。
+
+ColorOS 图标版权归 OPPO 所有，此处仅用于指示操作位置。

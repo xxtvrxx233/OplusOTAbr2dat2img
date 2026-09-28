@@ -10,6 +10,9 @@ OplusOTAbr2dat2img
 
 仅支持 A-only 动态分区设备。
 
+镜像还原使用同目录下的 sdat2img.py（xpirt/sdat2img，MIT 协议），
+其许可证见 LICENSES/sdat2img-MIT.txt。
+
 设计约束（改动时请勿破坏）：
   * 不重命名 / 修改 / 移动用户的原始输入文件，全程只读。
   * 所有产物仅写入输出目录，该目录顶层只包含 <分区>.img，
