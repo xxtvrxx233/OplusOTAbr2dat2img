@@ -40,7 +40,7 @@ Get Python 3.11 from [Microsoft Store](https://apps.microsoft.com/store/detail/p
 > pip install brotli
 ```
 
-_Note: If you have the whole repository, `pip install -r requirements.txt` installs the same dependency._
+_Note: If you have cloned the whole repository, `pip install -r requirements.txt` installs the same dependency._
 ## 4. Run the script
 Go to Workspace
 ``` bash
@@ -87,20 +87,20 @@ _注意：在这之前，你需要自行创建工作目录。_
 ```
 ### Windows 用户
 在 [Microsoft Store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K?)  上获取 Python 3.11  
-
+然后在 Powershell 中执行
 ```bash
 > pip install brotli
 ```
 
-_注:若已获取整个仓库，可执行 `pip install -r requirements.txt` 安装同一依赖。_
+_注:若已 clone 整个仓库，可执行 `pip install -r requirements.txt` 安装依赖。_
 ## 4. 执行脚本
 转到工作目录
 ```bash
 $ python3 br2dat2img.py
 ```
-脚本会扫描工作目录，列出识别到的分区，按 `y` 开始转换。输出的镜像在 `./out/` 目录。
+脚本会扫描工作目录，列出识别到的分区。待您确认后，按 `y` 开始转换。输出的镜像在 `./out/` 目录。
 
-_注:无需重命名文件，文件名中的数字会自动去除。界面语言跟随系统区域设置，中英文共用一个脚本。_
+_注:无需重命名文件，文件名中的 nv 号会自动去除。界面语言跟随系统区域设置，中英文共用同一脚本。_
 
 ---
 
