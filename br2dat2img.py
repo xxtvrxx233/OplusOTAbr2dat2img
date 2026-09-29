@@ -89,6 +89,10 @@ MESSAGES = {
         "all_skipped": "没有分区配对成功，未执行转换。",
         "arg_indir": "OTA 文件所在目录（默认：当前目录）",
         "arg_outdir": "镜像输出目录（默认：./out）",
+        "arg_partition": "只转换指定的分区，可给多个；分区名或原始文件名均可（默认：全部）",
+        "part_not_found": "错误：未找到以下分区：{names}\n可用分区：{available}",
+        "part_none_available": "（无）",
+        "part_incomplete": "注意：以下分区的文件不完整，已被跳过：{names}",
         "arg_lang": "界面语言（默认 auto：按环境变量与系统区域自动判定，回退为 en）",
         "arg_jobs": "并行解压的进程数（默认：CPU 核心数）",
         "arg_yes": "跳过确认，直接开始",
@@ -130,6 +134,10 @@ MESSAGES = {
         "all_skipped": "No partition could be paired, nothing was converted.",
         "arg_indir": "directory containing the OTA files (default: current directory)",
         "arg_outdir": "directory to write the images to (default: ./out)",
+        "arg_partition": "convert only the given partitions, one or more; accepts partition names or original filenames (default: all)",
+        "part_not_found": "Error: no such partition: {names}\nAvailable: {available}",
+        "part_none_available": "(none)",
+        "part_incomplete": "Note: these partitions have incomplete files and were skipped: {names}",
         "arg_lang": "UI language (default auto: detect from environment and system locale, falls back to en)",
         "arg_jobs": "number of parallel decompression workers (default: CPU count)",
         "arg_yes": "skip the confirmation prompt",
@@ -138,6 +146,56 @@ MESSAGES = {
 }
 
 LANG = "en"
+
+# argparse 自己的框架文案（usage:、options:、错误提示等）由它内部用 gettext 生成，
+# 默认只有英文，替换 argparse._ 才能让 --help 和参数报错跟着界面语言走。
+ARGPARSE_ZH = {
+    "usage: ": "用法: ",
+    "options": "选项",
+    "positional arguments": "位置参数",
+    "subcommands": "子命令",
+    "show this help message and exit": "显示此帮助信息并退出",
+    " (default: %(default)s)": "（默认：%(default)s）",
+    "%(prog)s: error: %(message)s\n": "%(prog)s: 错误: %(message)s\n",
+    "%(prog)s: warning: %(message)s\n": "%(prog)s: 警告: %(message)s\n",
+    "unrecognized arguments: %s": "无法识别的参数: %s",
+    "the following arguments are required: %s": "缺少必需参数: %s",
+    "expected one argument": "需要一个参数",
+    "expected at most one argument": "最多接受一个参数",
+    "expected at least one argument": "至少需要一个参数",
+    "invalid choice: %(value)r (choose from %(choices)s)":
+        "无效选项: %(value)r（可选值：%(choices)s）",
+    "invalid choice: %(value)r, maybe you meant %(closest)r? ":
+        "无效选项: %(value)r，你是指 %(closest)r 吗？",
+    "invalid %(type)s value: %(value)r": "无效的 %(type)s 值: %(value)r",
+    "not allowed with argument %s": "不可与参数 %s 同时使用",
+    "one of the arguments %s is required": "需要以下参数之一: %s",
+    "ambiguous option: %(option)s could match %(matches)s":
+        "选项有歧义: %(option)s 可能是 %(matches)s",
+    "argument %(argument_name)s: %(message)s": "参数 %(argument_name)s: %(message)s",
+    "ignored explicit argument %r": "忽略了显式参数 %r",
+    "unexpected option string: %s": "意外的选项字符串: %s",
+    "unknown parser %(parser_name)r (choices: %(choices)s)":
+        "未知的子解析器 %(parser_name)r（可选：%(choices)s）",
+}
+
+# 这两条 argparse 走 ngettext（单复数），中文不分单复数，取单数形式即可
+ARGPARSE_ZH_PLURAL = {
+    "expected %s argument": "需要 %s 个参数",
+    "conflicting option string: %s": "冲突的选项字符串: %s",
+}
+
+
+def localize_argparse():
+    """把 argparse 自身的框架文案换成当前语言。
+
+    argparse 模块级 `from gettext import gettext as _`，其代码运行时查全局名 `_`，
+    所以替换 `argparse._` 即可生效。非中文时保持原样。
+    """
+    if LANG != "zh":
+        return
+    argparse._ = lambda message: ARGPARSE_ZH.get(message, message)
+    argparse.ngettext = lambda singular, plural, n: ARGPARSE_ZH_PLURAL.get(singular, singular)
 
 
 def t(key, **kw):
@@ -247,6 +305,37 @@ def scan(workdir):
             unpaired.append((tl_list[0], BR_SUFFIX.lstrip(".")))
 
     return ready, unpaired, conflicts
+
+
+def partition_of(filename):
+    """从原始文件名反推分区名；文件名不认识时返回 None。"""
+    for suffix in (BR_SUFFIX, TL_SUFFIX):
+        if filename.endswith(suffix):
+            return clean_partition_name(filename[: -len(suffix)])
+    return None
+
+
+def match_jobs(tokens, ready):
+    """把命令行给出的分区标识换算成 Job。
+
+    标识允许三种写法：分区名、原始数据文件名、原始 transfer.list 文件名。
+    后两种是为了让用户能直接从工作目录里复制文件名粘贴过来。
+
+    返回 (选中的 Job 列表, 无法解析的标识列表)，两者都保持用户给出的顺序。
+    """
+    index = {}
+    for job in ready:
+        for key in (job.part, job.br_name, job.tl_name):
+            index[key] = job
+
+    picked, unknown = [], []
+    for token in tokens:
+        job = index.get(token)
+        if job is None:
+            unknown.append(token)
+        elif job not in picked:
+            picked.append(job)
+    return picked, unknown
 
 
 # --------------------------------------------------------------------------
@@ -384,16 +473,25 @@ def confirm():
 # --------------------------------------------------------------------------
 
 def _preparse_lang(argv):
-    """argparse 的帮助文本同样需要翻译，因此须先于 parser 确定语言。"""
+    """argparse 的帮助文本同样需要翻译，因此须先于 parser 确定语言。
+
+    这里必须自行校验取值：本函数跑在 argparse 之前，若把无效值（如 --lang xx）
+    直接交给 MESSAGES 会 KeyError 抛 traceback，而正确的行为是由 argparse
+    在解析阶段报 "invalid choice"。
+    """
     for i, arg in enumerate(argv):
         if arg == "--lang" and i + 1 < len(argv):
-            return argv[i + 1]
-        if arg.startswith("--lang="):
-            return arg.split("=", 1)[1]
+            value = argv[i + 1]
+        elif arg.startswith("--lang="):
+            value = arg.split("=", 1)[1]
+        else:
+            continue
+        return value if value in ("zh", "en") else "auto"
     return "auto"
 
 
 def build_parser():
+    localize_argparse()
     parser = argparse.ArgumentParser(
         prog="br2dat2img.py",
         description=t("banner", v=VERSION),
@@ -401,6 +499,7 @@ def build_parser():
     )
     parser.add_argument("-i", "--indir", default=".", metavar="DIR", help=t("arg_indir"))
     parser.add_argument("-o", "--outdir", default="out", metavar="DIR", help=t("arg_outdir"))
+    parser.add_argument("-p", "--partition", nargs="+", metavar="NAME", help=t("arg_partition"))
     parser.add_argument("--lang", choices=["auto", "zh", "en"], default="auto", help=t("arg_lang"))
     parser.add_argument("-j", "--jobs", type=int, default=0, metavar="N", help=t("arg_jobs"))
     parser.add_argument("-y", "--yes", action="store_true", help=t("arg_yes"))
@@ -446,7 +545,26 @@ def main(argv=None):
         return 2
 
     print(t("scanning", path=indir))
-    ready, unpaired, conflicts = scan(indir)
+    scanned, unpaired, conflicts = scan(indir)
+
+    # -p 只挑选指定分区；未指定时就是扫到的全部
+    ready = scanned
+    if args.partition:
+        ready, unknown = match_jobs(args.partition, scanned)
+        if unknown:
+            available = ", ".join(job.part for job in scanned) or t("part_none_available")
+            print(t("part_not_found", names=", ".join(unknown), available=available),
+                  file=sys.stderr)
+            # 用户指定的名字可能对应一个文件不完整的分区，那样他也看不到确认表，
+            # 所以这里单独说明，免得他以为是自己名字打错了
+            incomplete = []
+            for name, _ in unpaired:
+                part = partition_of(name)
+                if name in unknown or part in unknown:
+                    incomplete.append(part or name)
+            if incomplete:
+                print(t("part_incomplete", names=", ".join(incomplete)), file=sys.stderr)
+            return 2
 
     if not ready:
         if unpaired or conflicts:

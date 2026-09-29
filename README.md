@@ -8,10 +8,7 @@ _Note: Only applicable to devices with A-only [Dynamic Partitons](https://source
 # Usage
 ## 1. Get Software Updates
 
-<div>Open 
-     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_Settings_Icon.png" width="20" height="20"                                              alt="ColorOS_Settings_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a> Settings App<div>Tap 
-     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_About_Icon.png" width="20" height="22"                                              alt="ColorOS_About_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a>About Phone→Software Updates→Download 
-     </div>
+Settings → About Phone → Software Updates → Download
 
  ## 2. Get OTA file
 After finishing
@@ -59,10 +56,10 @@ The script scans the workspace and lists the partitions found. Press `y` to star
 
 _Note: Renaming files is not needed - nv id in filenames are removed automatically. The interface language follows your system locale._
 
+_Note: To convert only some partitions, pass `-p` with their names, e.g. `python3 br2dat2img.py -p system vendor`._
+
 ---
 Open source projects used [@xpirt/sdat2img](https://github.com/xpirt/sdat2img). Its license is kept in `LICENSES/sdat2img-MIT.txt`.
-
-ColorOS icons are the property of OPPO, used here solely to indicate where to tap.
 
 
 # Oplus（OPPO/一加/Realme） 设备 OTA 文件一键转换为 img
@@ -75,10 +72,8 @@ _注意:仅适用于A-only[动态分区](https://source.android.google.cn/device
 
 # 使用方法
 ## 1.下载软件更新
-<div>打开 
-     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_Settings_Icon.png" width="20" height="20"                                              alt="ColorOS_Settings_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a> 设置 应用<div>点按
-     <a href="https://github.com/xxtvrxx233/OplusOTAbr2dat2img"><img src="ColorOS_About_Icon.png" width="20" height="21"                                              alt="ColorOS_About_Icon.png" style="border: 2px solid cyan; border-radius: 50%"></a>关于本机→查看更新→立即下载
-      
+设置 → 关于本机 → 查看更新 → 立即下载
+
 ## 2. 获取OTA文件
 等待下载完成后
 
@@ -121,8 +116,8 @@ $ python3 br2dat2img.py
 
 _注: 无需重命名原始文件，文件名中的 nv 号会自动去除。界面语言跟随系统区域设置。若要强制使用中文，请使用 --lang zh 参数_
 
+_注: 若要只转换部分分区，可用 `-p` 指定，如 `python3 br2dat2img.py -p system vendor`。_
+
 ---
 
 所用到的开源项目 [@xpirt/sdat2img](https://github.com/xpirt/sdat2img)，其许可证保存在 `LICENSES/sdat2img-MIT.txt`。
-
-ColorOS 图标版权归 OPPO 所有，此处仅用于指示操作位置。
