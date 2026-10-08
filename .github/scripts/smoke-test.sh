@@ -7,8 +7,14 @@
 # 用法: smoke-test.sh <二进制路径> [python解释器]
 set -euo pipefail
 
-BIN="${1:?用法: smoke-test.sh <二进制路径> [python解释器]}"
+# 转成绝对路径：脚本中途会 cd 到临时目录，相对路径会失效
+BIN="$(realpath "${1:?用法: smoke-test.sh <二进制路径> [python解释器]}")"
 PYTHON="${2:-python3}"
+[ -x "$BIN" ] || { echo "错误：$BIN 不存在或不可执行" >&2; exit 1; }
+
+# CI 容器里 HOME 下的缓存目录不可写，pip 会打 WARNING，直接关掉缓存
+export PIP_NO_CACHE_DIR=1
+export PIP_DISABLE_PIP_VERSION_CHECK=1
 
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
