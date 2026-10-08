@@ -16,6 +16,10 @@ PYTHON="${2:-python3}"
 export PIP_NO_CACHE_DIR=1
 export PIP_DISABLE_PIP_VERSION_CHECK=1
 
+# 断言脚本会输出中文。Windows 上 Python 的 stdout 默认是 cp1252，
+# 编不了中文会在成功路径上抛 UnicodeEncodeError，把真正的失败原因盖掉。
+export PYTHONIOENCODING=utf-8
+
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
