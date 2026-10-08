@@ -5,6 +5,21 @@
 Convert OTA software update files from Oplus devices (OPPO/OnePlus/Realme) into `.img` images for flashing
 
 _Note: Only applicable to devices with A-only [Dynamic Partitons](https://source.android.com/docs/core/ota/dynamic_partitions/implement)_
+
+## Prebuilt binary
+
+A self-contained Linux x86_64 binary is published in [Releases](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases). It needs no Python and no brotli installed.
+
+```bash
+$ chmod +x br2dat2img
+$ ./br2dat2img
+```
+
+Put it in the workspace and run it - same behaviour as the script, same options.
+Requires glibc 2.35 or newer (Ubuntu 22.04+, Debian 12+, Arch, RHEL 9 is too old).
+
+Termux users should use the script instead - Android uses bionic libc, which this binary cannot run on.
+
 # Usage
 ## 1. Get Software Updates
 
@@ -20,6 +35,7 @@ _Note: You have to create workspace folder manually before using it._
 
 ## 3. Put scripts into workspace
 Copy `br2dat2img.py` and `sdat2img.py` from this repository into the workspace.
+Skip this step and step 4 if you use the prebuilt binary - just put `br2dat2img` in the workspace.
 
 ## 4. Install dependences
 ### Debian & Ubuntu Users
@@ -70,6 +86,20 @@ _注意:仅适用于A-only[动态分区](https://source.android.google.cn/device
 
 自动将 br 格式的文件转换为可以直接刷入的 img 镜像
 
+## 预编译二进制
+
+[Releases](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases) 中提供 Linux x86_64 的单文件二进制，无需安装 Python 和 brotli。
+
+```bash
+$ chmod +x br2dat2img
+$ ./br2dat2img
+```
+
+放进工作目录直接运行，行为与脚本版完全一致，参数也相同。
+要求 glibc 2.35 及以上（Ubuntu 22.04+、Debian 12+、Arch 均可，RHEL 9 偏低）。
+
+Termux 用户请使用脚本版：Android 使用 bionic libc，该二进制无法运行。
+
 # 使用方法
 ## 1.下载软件更新
 设置 → 关于本机 → 查看更新 → 立即下载
@@ -82,6 +112,7 @@ _注意：在这之前，你需要自行创建工作目录。_
 
 ## 3. 放入脚本
 将本仓库中的 `br2dat2img.py` 和 `sdat2img.py` 复制到工作目录。
+若使用预编译二进制，本步与第 4 步均可跳过，只需把 `br2dat2img` 放进工作目录。
 
 ## 4. 安装依赖
 ### Debian / Ubuntu 用户
