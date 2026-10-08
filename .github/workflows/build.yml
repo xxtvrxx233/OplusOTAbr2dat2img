@@ -50,3 +50,29 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/br2dat2img
+
+  windows-x86_64:
+    name: Windows x86_64
+    runs-on: windows-latest
+    # 不发布 Release：产物只作为 artifact 上传，由维护者自行验证后手动发布。
+    # 原因是 Windows 产物无法在本仓库的 Linux 环境下实测，必须先人工确认。
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build
+        shell: pwsh
+        run: |
+          ./.github/scripts/build-windows.ps1
+          Get-ChildItem dist
+
+      # windows-latest 自带 Git Bash，冒烟测试脚本可直接跑
+      - name: Smoke test
+        shell: bash
+        run: bash .github/scripts/smoke-test.sh dist/br2dat2img.exe
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: br2dat2img-windows-x86_64
+          path: dist/br2dat2img.exe
+          if-no-files-found: error

@@ -22,8 +22,13 @@ trap 'rm -rf "$WORK"' EXIT
 if ! "$PYTHON" -c "import brotli" 2>/dev/null; then
   echo "$PYTHON 缺少 brotli，改用临时 venv"
   "$PYTHON" -m venv "$WORK/venv"
-  "$WORK/venv/bin/python" -m pip install --quiet --disable-pip-version-check brotli
-  PYTHON="$WORK/venv/bin/python"
+  # POSIX 下解释器在 bin/，Windows(Git Bash) 下在 Scripts/
+  if [ -x "$WORK/venv/bin/python" ]; then
+    PYTHON="$WORK/venv/bin/python"
+  else
+    PYTHON="$WORK/venv/Scripts/python.exe"
+  fi
+  "$PYTHON" -m pip install --quiet --disable-pip-version-check brotli
 fi
 "$PYTHON" -c "import brotli" || { echo "错误：无法准备带 brotli 的解释器" >&2; exit 1; }
 
