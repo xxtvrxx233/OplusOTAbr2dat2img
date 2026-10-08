@@ -18,25 +18,24 @@ jobs:
     # 推 tag 时要把产物附到 Release，需要写权限；fork 来的 PR 拿到的 token 仍是只读
     permissions:
       contents: write
+    # 用官方 python 镜像而不是 ubuntu-latest 直接编：
+    #   - ubuntu-latest 的 glibc 太新（2.39），产物在老系统上跑不了；
+    #     bookworm 是 2.36，覆盖范围更广
+    #   - 该镜像的 CPython 是 --enable-shared 编的，PyInstaller 需要 libpython3.x.so
+    #     （manylinux 镜像是 --disable-shared，用不了）
+    #   - 用完整版而非 slim：slim 里没有 git，actions/checkout 需要它
+    container:
+      image: python:3.12-bookworm
     steps:
       - uses: actions/checkout@v7
 
-      # 在 manylinux2014 容器里编译：glibc 2.17 起，覆盖 2014 年后的绝大多数发行版。
-      # 直接在 ubuntu-latest 上编会把 glibc 下限抬到 runner 的版本，老系统跑不了。
       - name: Build
         run: |
-          docker run --rm \
-            -v "$PWD:/src" \
-            -w /src \
-            -e OUTDIR=/src/dist \
-            quay.io/pypa/manylinux2014_x86_64 \
-            bash /src/.github/scripts/build-linux.sh
+          bash .github/scripts/build-linux.sh
+          ls -l dist/
 
       - name: Smoke test
-        run: |
-          python3 -m venv "$RUNNER_TEMP/venv"
-          "$RUNNER_TEMP/venv/bin/pip" install --quiet brotli
-          bash .github/scripts/smoke-test.sh dist/br2dat2img "$RUNNER_TEMP/venv/bin/python"
+        run: bash .github/scripts/smoke-test.sh dist/br2dat2img python3
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7

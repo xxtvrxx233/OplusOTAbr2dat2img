@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # 构建 Linux x86_64 单文件二进制。
 #
-# 在 manylinux2014 容器里运行可得到兼容性最广的产物（glibc >= 2.17，覆盖 2014 年
-# 之后的绝大多数发行版）；在普通开发机上运行则用于本地验证，产物只保证本机能跑。
+# 必须在「带共享库的 CPython」环境里运行。manylinux 镜像用不了：它的 CPython 是
+# --disable-shared 编的，没有 libpython3.x.so，PyInstaller 会直接报错退出。
+# CI 里跑在 python:3.12-slim-bookworm（--enable-shared，glibc 2.36）里。
 #
 # 环境变量：
-#   PYTHON   指定解释器，默认在容器里挑 /opt/python 下最新的，否则用 python3
+#   PYTHON   指定解释器，默认 python3
 #   NAME     产物文件名，默认 br2dat2img
 #   OUTDIR   输出目录，默认 <repo>/dist
 set -euo pipefail
@@ -16,24 +17,19 @@ OUTDIR="${OUTDIR:-$ROOT/dist}"
 BUILD="$(mktemp -d)"
 trap 'rm -rf "$BUILD"' EXIT
 
-# 选解释器：manylinux 镜像里装了多个 Python，挑一个 PyInstaller 支持得上的。
-PYTHON="${PYTHON:-}"
-if [ -z "$PYTHON" ] && [ -d /opt/python ]; then
-  for ver in 314 313 312 311; do
-    candidate="/opt/python/cp${ver}-cp${ver}/bin/python3"
-    if [ -x "$candidate" ]; then
-      PYTHON="$candidate"
-      break
-    fi
-  done
-fi
 PYTHON="${PYTHON:-python3}"
 echo "解释器: $("$PYTHON" -V) ($PYTHON)"
 
+# 提前拦一道：没有共享库的话 PyInstaller 会在最后一步才失败，日志很难看懂
+if ! "$PYTHON" -c "import sysconfig, sys; sys.exit(0 if sysconfig.get_config_var('Py_ENABLE_SHARED') else 1)"; then
+  echo "错误：该解释器没有共享库（Py_ENABLE_SHARED=0），PyInstaller 无法工作。" >&2
+  echo "      需要 --enable-shared 编译的 CPython，例如 python:3.12-slim-bookworm 镜像。" >&2
+  exit 1
+fi
+
 # 优先用 venv：开发机上可绕过 PEP 668 的 externally-managed 限制。
-# manylinux 镜像里的 CPython 是用 --with-ensurepip=no 编的，venv 建不出带 pip 的
-# 环境，所以那里会走 --target 分支：装到临时目录 + PYTHONPATH，不污染镜像自带的
-# /opt/python（容器以 root 运行，写进去虽然可以，但没必要）。
+# 万一解释器没带 ensurepip（--with-ensurepip=no 编的），退回 --target：
+# 装到临时目录 + PYTHONPATH，不污染系统环境。
 if "$PYTHON" -m venv "$BUILD/venv" >/dev/null 2>&1; then
   PYBIN="$BUILD/venv/bin/python"
   "$PYBIN" -m pip install --quiet --upgrade pip
