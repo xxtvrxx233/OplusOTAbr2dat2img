@@ -8,17 +8,25 @@ _Note: Only applicable to devices with A-only [Dynamic Partitons](https://source
 
 ## Prebuilt binary
 
-A self-contained Linux x86_64 binary is published in [Releases](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases). It needs no Python and no brotli installed.
+A self-contained Linux & Windows x86_64 binary is published in [Releases](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases). It needs no Python and no brotli installed.
 
+### Linux
 ```bash
 $ chmod +x br2dat2img
 $ ./br2dat2img
 ```
-
-Put it in the workspace and run it - same behaviour as the script, same options.
 Requires glibc 2.35 or newer (Ubuntu 22.04+, Debian 12+, Arch, RHEL 9 is too old).
 
 Termux users should use the script instead - Android uses bionic libc, which this binary cannot run on.
+
+### Windows
+Run in Windows PowerShell or cmd (administrator)
+```bash
+> .\br2dat2img.exe
+```
+
+Put it in the workspace and run it - same behaviour as the script, same options.
+
 
 # Usage
 ## 1. Get Software Updates
@@ -88,17 +96,25 @@ _注意:仅适用于A-only[动态分区](https://source.android.google.cn/device
 
 ## 预编译二进制
 
-[Releases](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases) 中提供 Linux x86_64 的单文件二进制，无需安装 Python 和 brotli。
+[Releases](https://github.com/xxtvrxx233/OplusOTAbr2dat2img/releases) 中提供 Linux 与 Windows 的 x86_64 架构单文件二进制，无需安装外部依赖
 
+### Linux
 ```bash
 $ chmod +x br2dat2img
 $ ./br2dat2img
 ```
+要求 glibc 2.35 及以上（Ubuntu 22.04+、Debian 12+、Arch 均可。HEL 9 偏低）。
 
-放进工作目录直接运行，行为与脚本版完全一致，参数也相同。
-要求 glibc 2.35 及以上（Ubuntu 22.04+、Debian 12+、Arch 均可，RHEL 9 偏低）。
+Termux 用户请使用脚本版：Android 使用 bionic libc，Releases 中提供的二进制无法运行。
 
-Termux 用户请使用脚本版：Android 使用 bionic libc，该二进制无法运行。
+### Windows
+通过 Windows PowerShell (管理员) 或 cmd (管理员) 运行
+
+```bash
+> .\br2dat2img.exe
+```
+
+将二进制放入工作目录直接运行，行为与脚本版完全一致，参数也相同。
 
 # 使用方法
 ## 1.下载软件更新
@@ -110,11 +126,16 @@ Termux 用户请使用脚本版：Android 使用 bionic libc，该二进制无�
 转到 `/data/ota_package/OTA/.otaPackage/`文件夹, 解压所有`.br`和`.list`文件到工作目录
 _注意：在这之前，你需要自行创建工作目录。_
 
-## 3. 放入脚本
-将本仓库中的 `br2dat2img.py` 和 `sdat2img.py` 复制到工作目录。
-若使用预编译二进制，本步与第 4 步均可跳过，只需把 `br2dat2img` 放进工作目录。
+## 3. 准备转换
+### 若要使用预编译二进制:
+参见 [预编译二进制](##预编译二进制)
 
-## 4. 安装依赖
+### 若要使用 Python 脚本
+
+将本仓库中的 `br2dat2img.py` 和 `sdat2img.py` 复制到工作目录。
+若使用预编译二进制，本步与第 4 步均可跳过 
+
+#### 安装依赖
 ### Debian / Ubuntu 用户
 ```
 # apt install python3 python3-brotli
