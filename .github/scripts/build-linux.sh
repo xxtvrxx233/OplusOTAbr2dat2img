@@ -20,6 +20,10 @@ trap 'rm -rf "$BUILD"' EXIT
 PYTHON="${PYTHON:-python3}"
 echo "解释器: $("$PYTHON" -V) ($PYTHON)"
 
+# CI 容器里 HOME 下的缓存目录不可写，pip 每次都会打两条 WARNING，直接关掉缓存
+export PIP_NO_CACHE_DIR=1
+export PIP_DISABLE_PIP_VERSION_CHECK=1
+
 # 提前拦一道：没有共享库的话 PyInstaller 会在最后一步才失败，日志很难看懂
 if ! "$PYTHON" -c "import sysconfig, sys; sys.exit(0 if sysconfig.get_config_var('Py_ENABLE_SHARED') else 1)"; then
   echo "错误：该解释器没有共享库（Py_ENABLE_SHARED=0），PyInstaller 无法工作。" >&2

@@ -1,16 +1,26 @@
 #!/usr/bin/env bash
 # 冒烟测试：用合成的 OTA 数据跑一遍完整流程，验证二进制真的能工作。
 #
-# 合成数据依赖 brotli 的 Python 模块来压缩，所以需要传入一个装了 brotli 的解释器。
+# 合成数据需要 brotli 模块来压缩。脚本自己准备解释器：传入的解释器缺 brotli 时，
+# 自动建一个临时 venv 装上（容器里 pip 有 externally-managed 限制，装不进系统环境）。
 #
-# 用法: smoke-test.sh <二进制路径> <python解释器>
+# 用法: smoke-test.sh <二进制路径> [python解释器]
 set -euo pipefail
 
-BIN="${1:?用法: smoke-test.sh <二进制路径> <python解释器>}"
-PYTHON="${2:?用法: smoke-test.sh <二进制路径> <python解释器>}"
+BIN="${1:?用法: smoke-test.sh <二进制路径> [python解释器]}"
+PYTHON="${2:-python3}"
 
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
+
+if ! "$PYTHON" -c "import brotli" 2>/dev/null; then
+  echo "$PYTHON 缺少 brotli，改用临时 venv"
+  "$PYTHON" -m venv "$WORK/venv"
+  "$WORK/venv/bin/python" -m pip install --quiet --disable-pip-version-check brotli
+  PYTHON="$WORK/venv/bin/python"
+fi
+"$PYTHON" -c "import brotli" || { echo "错误：无法准备带 brotli 的解释器" >&2; exit 1; }
+
 cd "$WORK"
 
 # 造 3 个正常分区（带 NV 号）、1 个损坏的、1 个缺配对的文件
