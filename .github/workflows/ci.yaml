@@ -21,7 +21,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@nightly
         with:
           targets: x86_64-unknown-linux-musl
-      - run: cargo build --release --target x86_64-unknown-linux-musl --features cli
+      - name: Build for x86_64
+        run: cargo build --release --target x86_64-unknown-linux-musl --features cli
 
       - uses: actions/upload-artifact@v7
         with:
@@ -34,7 +35,7 @@ jobs:
       - name: Install cross-compilation dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y musl-tools gcc-aarch64-linux-gnu
+          sudo apt-get install -y musl-tools gcc-aarch64-linux-gnu lld
 
       - uses: actions/checkout@v7
 
@@ -45,7 +46,11 @@ jobs:
       - uses: dtolnay/rust-toolchain@nightly
         with:
           targets: aarch64-unknown-linux-musl
-      - run: cargo build --release --target aarch64-unknown-linux-musl --features cli
+
+      - name: Build for aarch64
+        env:
+          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER: rust-lld
+        run: cargo build --release --target aarch64-unknown-linux-musl --features cli
       
       - uses: actions/upload-artifact@v7
         with:
@@ -65,12 +70,15 @@ jobs:
           "sha_short=$sha" >> $env:GITHUB_ENV
       
       - uses: dtolnay/rust-toolchain@nightly
-      - run: cargo build --release --features cli
+
+      - name: Build for windows x86_64 
+        run: cargo build --release --features cli
       
       - uses: actions/upload-artifact@v7
         with:
           name: br2img-${{ env.sha_short }}-x86_64.exe
           path: target/release/br2img.exe
+
   release: 
     needs: [linux-x86_64, linux-aarch64, windows-x86_64]
     runs-on: ubuntu-latest
