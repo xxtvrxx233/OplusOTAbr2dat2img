@@ -12,15 +12,17 @@ jobs:
   linux-x86_64:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v7
+
       - name: Get short SHA
         id: vars
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@nightly
         with:
           targets: x86_64-unknown-linux-musl
       - run: cargo build --release --target x86_64-unknown-linux-musl --features cli
+
       - uses: actions/upload-artifact@v7
         with:
           name: br2img-${{ env.sha_short }}-x86_64
@@ -29,15 +31,17 @@ jobs:
   linux-aarch64:
     runs-on: ubuntu-latest-arm
     steps:
+      - uses: actions/checkout@v7
+
       - name: Get short SHA
         id: vars
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@nightly
         with:
           targets: aarch64-unknown-linux-musl
       - run: cargo build --release --target aarch64-unknown-linux-musl --features cli
+      
       - uses: actions/upload-artifact@v7
         with:
           name: br2img-${{ env.sha_short }}-aarch64
@@ -46,14 +50,37 @@ jobs:
   windows-x86_64:
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v7
+
       - name: Get short SHA
         id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD .)" >> $GITHUB_ENV
-
-      - uses: actions/checkout@v7
+        shell: pwsh
+        run: |
+          $sha = git rev-parse --short HEAD
+          "sha_short=$sha" >> $env:GITHUB_ENV
+      
       - uses: dtolnay/rust-toolchain@nightly
       - run: cargo build --release --features cli
+      
       - uses: actions/upload-artifact@v7
         with:
           name: br2img-${{ env.sha_short }}-x86_64.exe
           path: target/release/br2img.exe
+  release: 
+    needs: [linux-x86_64, linux-aarch64, windows-x86_64]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+        with:
+          pattern: br2img-*
+          path: artifacts
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: rs-${{ github.sha }}
+          name: Rust Build ${{ github.sha }}
+          target_commitish: ${{ github.sha }}
+          prerelease: true
+          files: artifacts/*
+          fail_on_unmatched_files: true
