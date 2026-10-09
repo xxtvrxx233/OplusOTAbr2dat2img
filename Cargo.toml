@@ -1,0 +1,38 @@
+[package]
+name = "br2img"
+version = "0.1.0"
+edition = "2024"
+authors = ["V-Conet"]
+description = "Turn an Android block-OTA `.new.dat.br` + `.transfer.list` into a raw partition image"
+license = "MIT"
+
+[features]
+# The library is the default deliverable; the binary has to be asked for.
+default = []
+# Builds the `br2img` command line tool.
+cli = ["dep:clap", "dep:indicatif"]
+
+[dependencies]
+brotli = "9.0.0"
+thiserror = "2.0.21"
+
+# Only needed by the `cli` feature.
+clap = { version = "4.6.7", features = ["derive"], optional = true }
+indicatif = { version = "0.18.6", optional = true }
+
+[dev-dependencies]
+tempfile = "3.27.0"
+
+# Not built unless `--features cli` is given.
+[[bin]]
+name = "br2img"
+path = "src/main.rs"
+required-features = ["cli"]
+
+[profile.release]
+lto = "fat"
+opt-level = "z"
+strip = true
+
+[profile.dev]
+debug = "line-tables-only"

@@ -1,4 +1,2 @@
-__pycache__/
-*.py[cod]
-out/
-dist/
+/target
+/eg

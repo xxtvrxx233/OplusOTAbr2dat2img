@@ -1,0 +1,59 @@
+name: Build & Release
+
+on:
+  push:
+    branches: ['*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  linux-x86_64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get short SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          targets: x86_64-unknown-linux-musl
+      - run: cargo build --release --target x86_64-unknown-linux-musl --features cli
+      - uses: actions/upload-artifact@v7
+        with:
+          name: br2img-${{ env.sha_short }}-x86_64
+          path: target/x86_64-unknown-linux-musl/release/br2img
+          
+  linux-aarch64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get short SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          targets: aarch64-unknown-linux-musl
+      - run: cargo build --release --target aarch64-unknown-linux-musl --features cli
+      - uses: actions/upload-artifact@v7
+        with:
+          name: br2img-${{ env.sha_short }}-aarch64
+          path: target/aarch64-unknown-linux-musl/release/br2img
+
+  windows-x86_64:
+    runs-on: windows-latest
+    steps:
+      - name: Get short SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@nightly
+      - run: cargo build --release --features cli
+      - uses: actions/upload-artifact@v7
+        with:
+          name: br2img-${{ env.sha_short }}-x86_64.exe
+          path: target/release/br2img.exe
