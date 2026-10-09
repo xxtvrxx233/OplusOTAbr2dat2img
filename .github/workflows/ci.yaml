@@ -29,8 +29,13 @@ jobs:
           path: target/x86_64-unknown-linux-musl/release/br2img
           
   linux-aarch64:
-    runs-on: ubuntu-latest-arm
+    runs-on: ubuntu-latest
     steps:
+      - name: Install cross-compilation dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y musl-tools gcc-aarch64-linux-gnu
+
       - uses: actions/checkout@v7
 
       - name: Get short SHA
