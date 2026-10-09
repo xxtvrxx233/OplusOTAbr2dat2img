@@ -79,7 +79,7 @@ jobs:
           name: br2img-${{ env.sha_short }}-x86_64.exe
           path: target/release/br2img.exe
 
-  release: 
+  release:
     needs: [linux-x86_64, linux-aarch64, windows-x86_64]
     runs-on: ubuntu-latest
     steps:
@@ -88,6 +88,30 @@ jobs:
         with:
           pattern: br2img-*
           path: artifacts
+
+      - name: Prepare release assets
+        shell: bash
+        run: |
+          rm -rf release-assets
+          mkdir -p release-assets
+
+          for dir in artifacts/br2img-*; do
+            [[ -d "$dir" ]] || continue
+
+            name="${dir##*/}"
+            file="$(find "$dir" -maxdepth 1 -type f -print -quit)"
+
+            if [[ -z "$file" ]]; then
+              echo "::error::No file found in $dir"
+              exit 1
+            fi
+
+            cp -- "$file" "release-assets/$name"
+          done
+
+          ls -lh release-assets
+          test -n "$(find release-assets -maxdepth 1 -type f -print -quit)"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
@@ -95,5 +119,6 @@ jobs:
           name: Rust Build ${{ github.sha }}
           target_commitish: ${{ github.sha }}
           prerelease: true
-          files: artifacts/*
+          files: release-assets/*
           fail_on_unmatched_files: true
+          overwrite_files: true
