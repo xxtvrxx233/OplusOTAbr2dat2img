@@ -27,7 +27,7 @@ jobs:
           path: target/x86_64-unknown-linux-musl/release/br2img
           
   linux-aarch64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-arm
     steps:
       - name: Get short SHA
         id: vars
@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: Get short SHA
         id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        run: echo "sha_short=$(git rev-parse --short HEAD .)" >> $GITHUB_ENV
 
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@nightly
